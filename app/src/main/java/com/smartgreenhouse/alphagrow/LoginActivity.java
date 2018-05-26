@@ -24,15 +24,6 @@ public class LoginActivity extends AppCompatActivity {
         //Pegando os valores da view activity_login, atravas de seu ID
         email = (EditText) findViewById(R.id.editTextUserEmail);
         senha = (EditText) findViewById(R.id.editTextPassword);
-
-        Map<String, String> yves = new HashMap<>();
-
-        yves.put("user", email.getText().toString());
-        yves.put("pass", senha.getText().toString());
-
-        validar(email, senha);
-
-
     }
 
     private void validar(EditText email, EditText senha) {

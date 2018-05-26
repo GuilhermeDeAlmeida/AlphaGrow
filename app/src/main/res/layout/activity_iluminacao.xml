@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".IluminacaoActivity"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
@@ -17,18 +19,22 @@
             android:id="@+id/Recomendacao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/recomendacao" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/recomendacao"
+            android:textColor="@android:color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:background="?android:attr/colorPrimaryDark"
+            android:background="@drawable/card_border"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/component_size"
             android:paddingTop="@dimen/component_size"
             android:textAlignment="center">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/iluminacao"
-                    android:textColor="@android:color/background_light"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
                 <LinearLayout
@@ -60,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/generic3"
-                        android:textColor="@android:color/background_light"
+                        android:textColor="@android:color/black"
                         android:textSize="@dimen/current_status" />
 
                     <ImageView
@@ -75,6 +81,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
@@ -87,28 +94,32 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/imageButtonPlus"
-                        android:layout_width="@dimen/regulation_button"
-                        android:layout_height="@dimen/regulation_button"
-                        app:srcCompat="@drawable/ic_launcher_background" />
+                        android:id="@+id/buttonLight01"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/desactive_button_border"
+                        app:srcCompat="@drawable/light_off" />
 
                     <ImageButton
-                        android:id="@+id/imageButtonMinus"
-                        android:layout_width="@dimen/regulation_button"
-                        android:layout_height="@dimen/regulation_button"
-                        app:srcCompat="@mipmap/ic_launcher_round" />
+                        android:id="@+id/buttonLight02"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/desactive_button_border"
+                        app:srcCompat="@drawable/light_off" />
 
+                    <ImageButton
+                        android:id="@+id/buttonLight03"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/desactive_button_border"
+                        app:srcCompat="@drawable/light_off" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|end"
-                    android:text="@string/nivel"
-                    android:textColor="@android:color/background_light" />
-
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
@@ -121,8 +132,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="Grafico Iluminação x hora do dia" />
+            android:text="Grafico Iluminação x hora do dia"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 
