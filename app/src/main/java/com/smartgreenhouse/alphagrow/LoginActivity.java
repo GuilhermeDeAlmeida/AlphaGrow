@@ -24,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
         //Pegando os valores da view activity_login, atravas de seu ID
         email = (EditText) findViewById(R.id.editTextUserEmail);
         senha = (EditText) findViewById(R.id.editTextPassword);
+        validar(email, senha);
+
     }
 
     private void validar(EditText email, EditText senha) {
