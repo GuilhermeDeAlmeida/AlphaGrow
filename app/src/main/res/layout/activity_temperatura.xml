@@ -17,13 +17,6 @@
         android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/RecomendacaoTemperatura"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/recomendacao"
-            android:textColor="@android:color/black" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -70,7 +63,7 @@
                             android:id="@+id/textViewMetricaTemperatura"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/generic1"
+                            android:text="27º"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/current_status" />
 
@@ -129,12 +122,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@android:color/black" />
         </LinearLayout>
 
 
@@ -147,110 +134,6 @@
         android:layout_marginRight="5dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/RecomendacaoHumidade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/recomendacao"
-            android:textColor="@android:color/black" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/card_border"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/component_size"
-                android:paddingTop="@dimen/component_size"
-                android:textAlignment="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:foregroundGravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textViewHumidade"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/umidade"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textViewMetricaHumidade"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/generic2"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/current_status" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/imageButton5"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/desactive_button_border"
-                            app:srcCompat="@drawable/umidade" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/textViewNivelHumidade"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal|end"
-                        android:text="@string/nivel"
-                        android:textColor="@android:color/black" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -258,26 +141,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/buttonReportTemperatura"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/card_border"
-            android:text="@string/temperatura" />
-
-        <Button
-            android:id="@+id/buttonReportUmidade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/card_border"
-            android:text="@string/umidade" />
 
     </LinearLayout>
 

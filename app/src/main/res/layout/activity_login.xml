@@ -48,33 +48,6 @@
         android:layout_weight="0.6"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonFacebook"
-            style="@style/Widget.AppCompat.ButtonBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1"
-            android:background="@drawable/facebook_button_border"
-            android:onClick="efetuarLogin"
-            android:text="@string/facebookButton"
-            android:textColor="@android:color/holo_blue_dark"
-            tools:ignore="RtlSymmetry" />
-
-        <Button
-            android:id="@+id/buttonGoolge"
-            style="@style/Widget.AppCompat.ButtonBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
-            android:layout_weight="1"
-            android:background="@drawable/google_button_border"
-            android:onClick="efetuarLogin"
-            android:text="@string/googleButton"
-            android:textColor="@android:color/holo_red_light" />
-
     </LinearLayout>
 
 </LinearLayout>

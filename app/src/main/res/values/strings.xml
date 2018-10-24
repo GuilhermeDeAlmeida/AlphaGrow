@@ -35,6 +35,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="texto_recomendacao_umidade" >A recomendação de umidade é de: </string>
+    <string name="texto_recomendacao_temperatura" >A recomendação de temperatura é de: </string>
     loginButton
 
 </resources>
