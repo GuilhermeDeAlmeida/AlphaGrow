@@ -1,6 +1,7 @@
 package com.smartgreenhouse.alphagrow;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvUmidadeAdequada;
     TextView tvDiasProxCiclo;
     TextView tvInformacoesCiclo;
+    Handler handler;
 
     final String ID_CULTIVO = "5bcff24a949eee25408ad8b5";
 
@@ -51,7 +53,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         controladorService = APIConfig.getClient().create(ControladorService.class);
         cultivoService = APIConfig.getClient().create(CultivoService.class);
+        carregarDadosCiclo();
+        manterDadosCiclo();
 
+    }
+
+    //Será o metodo respons
+    private void manterDadosCiclo() {
+        handler = new Handler();
+        final Runnable r = new Runnable() {
+            public void run() {
+                Log.i("RUNNABLE","Hello World");
+                carregarDadosCiclo();
+                handler.postDelayed(this, 5000);
+            }
+        };
+        handler.postDelayed(r, 5000);
+    }
+
+    private void carregarDadosCiclo() {
         Call<Cultivo> call = controladorService.obterCultivo(ID_CULTIVO );
         call.enqueue(new Callback<Cultivo>() {
             @Override
