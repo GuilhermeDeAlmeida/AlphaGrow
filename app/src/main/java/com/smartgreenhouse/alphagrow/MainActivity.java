@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Será o metodo respons
+
     private void manterDadosCiclo() {
         handler = new Handler();
         final Runnable r = new Runnable() {
