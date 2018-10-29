@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.smartgreenhouse.alphagrow.config.APIConfig;
 import com.smartgreenhouse.alphagrow.models.Ciclo;
@@ -16,13 +15,8 @@ import com.smartgreenhouse.alphagrow.models.Cultivo;
 import com.smartgreenhouse.alphagrow.services.ControladorService;
 import com.smartgreenhouse.alphagrow.services.CultivoService;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -43,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvDiasProxCiclo;
     TextView tvInformacoesCiclo;
     Handler handler;
+    String umidadeAtual;
+    String temperaturaAtual;
 
     final String ID_CULTIVO = "5bcff24a949eee25408ad8b5";
 
@@ -145,8 +141,10 @@ public class MainActivity extends AppCompatActivity {
         for (Controlador controlador : listaControladores) {
             if(controlador.getNomeControlador().toUpperCase().equals("UMIDADE")){
                 tvUmidade.setText(controlador.getValorControlador() + "%");
+                umidadeAtual = controlador.getValorControlador();
             }else{
                 tvTemperatura.setText(controlador.getValorControlador() + "º");
+                temperaturaAtual = controlador.getValorControlador();
             }
         }
         tvTemperaturaAdequada.setText(ciclo.getControladoresIdeal().getTemperatura() + "º");
@@ -155,11 +153,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void redirecionarParaTemperatura(View view){
         Intent intent = new Intent(MainActivity.this, TemperaturaActivity.class);
+        intent.putExtra("temperatura", temperaturaAtual);
         startActivity(intent);
     }
 
-    public void redirecionarParaIndicePH(View view){
+    public void redirecionarParaUmidade(View view){
         Intent intent = new Intent(MainActivity.this, IndicePHActivity.class);
+        intent.putExtra("umidade", umidadeAtual);
         startActivity(intent);
     }
 
