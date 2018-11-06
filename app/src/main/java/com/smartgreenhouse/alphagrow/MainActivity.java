@@ -12,11 +12,15 @@ import com.smartgreenhouse.alphagrow.config.APIConfig;
 import com.smartgreenhouse.alphagrow.models.Ciclo;
 import com.smartgreenhouse.alphagrow.models.Controlador;
 import com.smartgreenhouse.alphagrow.models.Cultivo;
+import com.smartgreenhouse.alphagrow.models.Login;
+import com.smartgreenhouse.alphagrow.models.Usuario;
 import com.smartgreenhouse.alphagrow.services.ControladorService;
 import com.smartgreenhouse.alphagrow.services.CultivoService;
+import com.smartgreenhouse.alphagrow.services.UsuarioService;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -27,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final String TAG = "RESPOSTA>>>" ;
+
     ControladorService controladorService;
     CultivoService cultivoService;
+    UsuarioService usuarioService;
+
     ArrayList<Controlador> listaControladores = new ArrayList<>();
     TextView tvTemperatura;
     TextView tvUmidade;
@@ -36,31 +43,37 @@ public class MainActivity extends AppCompatActivity {
     TextView tvUmidadeAdequada;
     TextView tvDiasProxCiclo;
     TextView tvInformacoesCiclo;
+    TextView tvUsuario;
+
     Handler handler;
     String umidadeAtual;
     String temperaturaAtual;
-
-    final String ID_CULTIVO = "5bcff24a949eee25408ad8b5";
+//
+//    String ID_CULTIVO;
+//    String ID_USUARIO;
+    private String ID_LOGIN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tvUsuario = (TextView) findViewById(R.id.textViewUsuario);
         controladorService = APIConfig.getClient().create(ControladorService.class);
         cultivoService = APIConfig.getClient().create(CultivoService.class);
+        usuarioService = APIConfig.getClient().create(UsuarioService.class);
+        ID_LOGIN = getIntent().getStringExtra("idLogin");
+
+
         carregarDadosCiclo();
         manterDadosCiclo();
 
     }
 
-    //Será o metodo respons
-
     private void manterDadosCiclo() {
         handler = new Handler();
         final Runnable r = new Runnable() {
             public void run() {
-                Log.i("RUNNABLE","Hello World");
                 carregarDadosCiclo();
                 handler.postDelayed(this, 5000);
             }
@@ -69,25 +82,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void carregarDadosCiclo() {
-        Call<Cultivo> call = controladorService.obterCultivo(ID_CULTIVO );
-        call.enqueue(new Callback<Cultivo>() {
-            @Override
-            public void onResponse(Call<Cultivo> call, Response<Cultivo> response) {
-                Log.i(TAG, listaControladores.toString());
-//                Toast.makeText()
 
-                for (Ciclo ciclo : response.body().getCiclos()) {
+        Log.i(TAG, "Consultando através do usuarioService.obeterLogin(" + ID_LOGIN +")");
+        Call<Login> call = usuarioService.obeterLogin(ID_LOGIN);
+        call.enqueue(new Callback<Login>() {
+            @Override
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                tvUsuario.setText( "Bem vindo " + response.body().getUsuario().getNome());
+                Log.i(TAG, listaControladores.toString());
+                Cultivo cultivo= response.body().getUsuario().getRasp().getCultivo();
+                for (Ciclo ciclo : cultivo.getCiclos()) {
                     if(ciclo.getCicloAtual()){
-                        popularTela(response.body(), ciclo);
+                        popularTela(cultivo, ciclo);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<Cultivo> call, Throwable t) {
-                Log.e(TAG, t.getMessage());
+            public void onFailure(Call<Login> call, Throwable t) {
+
             }
         });
+//        Log.i(TAG, "Consultando através controladorService.obterCultivo(" +ID_CULTIVO +")");
+//        Call<Cultivo> call = controladorService.obterCultivo(ID_CULTIVO );
+//        call.enqueue(new Callback<Cultivo>() {
+//            @Override
+//            public void onResponse(Call<Cultivo> call, Response<Cultivo> response) {
+//                Log.i(TAG, listaControladores.toString());
+////                Toast.makeText()
+//
+//                for (Ciclo ciclo : response.body().getCiclos()) {
+//                    if(ciclo.getCicloAtual()){
+//                        popularTela(response.body(), ciclo);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Cultivo> call, Throwable t) {
+//                Log.e(TAG, t.getMessage());
+//            }
+//        });
     }
 
     private void popularTela(Cultivo cultivo, Ciclo ciclo) {

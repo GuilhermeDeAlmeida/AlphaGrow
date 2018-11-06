@@ -86,7 +86,7 @@
                         android:orientation="horizontal">
 
                         <ImageButton
-                            android:id="@+id/buttonWindPlus"
+                            android:id="@+id/buttonVentilador1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -94,29 +94,14 @@
                             app:srcCompat="@drawable/wind_plus" />
 
                         <ImageButton
-                            android:id="@+id/buttonWindMinus"
+                            android:id="@+id/buttonVentilador2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@drawable/alterable_button_border"
                             app:srcCompat="@drawable/wind_minus" />
 
-                        <ImageButton
-                            android:id="@+id/buttonExaust"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/desactive_button_border"
-                            app:srcCompat="@drawable/exaustao" />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/textViewNivelTemperaturaHome"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal|end"
-                        android:text="@string/nivel"
-                        android:textColor="@android:color/black" />
 
                 </LinearLayout>
 
