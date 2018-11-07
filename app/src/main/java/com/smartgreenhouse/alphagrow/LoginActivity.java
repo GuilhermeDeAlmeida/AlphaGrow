@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.smartgreenhouse.alphagrow.config.APIConfig;
+import com.smartgreenhouse.alphagrow.models.Autenticacao;
 import com.smartgreenhouse.alphagrow.models.Login;
 import com.smartgreenhouse.alphagrow.services.AutenticacaoService;
 
@@ -24,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText email;
     EditText senha;
     AutenticacaoService autenticacaoService;
-    String autenticado;
+    Autenticacao autenticado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,34 +44,33 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private String usuarioAutenticado(Login login) {
-        Call<String> call = autenticacaoService.autenticar(login);
-        call.enqueue(new Callback<String>() {
+    private void usuarioAutenticado(Login login) {
+        Call<Autenticacao> call = autenticacaoService.autenticar(login);
+        call.enqueue(new Callback<Autenticacao>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Autenticacao> call, Response<Autenticacao> response) {
                 Log.i("RESPOSTA","Resposta do WebService: " + response.body());
                 autenticado = response.body();
-                if( autenticado == null || !Boolean.parseBoolean(autenticado) == false) {
-                    Toast.makeText(getApplicationContext(), "Usuário e/ou senha inválido(s)", Toast.LENGTH_LONG).show();
-                }else{
+                if( autenticado != null && autenticado.isAutenticado()) {
                     validar();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Usuário e/ou senha inválido(s)", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Autenticacao> call, Throwable t) {
                 Log.e("RESPOSTA","Falhou a request");
                 Log.e("RESPOSTA",t.getMessage());
             }
         });
-        return autenticado;
     }
 
     private void validar() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //        intent.putExtra("idCultivo", autenticado);
 //        intent.putExtra("idUsuario", autenticado);
-        intent.putExtra("idLogin", autenticado);
+        intent.putExtra("idLogin", autenticado.getId());
         startActivity(intent);
     }
 }

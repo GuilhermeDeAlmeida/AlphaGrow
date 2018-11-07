@@ -1,5 +1,6 @@
 package com.smartgreenhouse.alphagrow.services;
 
+import com.smartgreenhouse.alphagrow.models.Autenticacao;
 import com.smartgreenhouse.alphagrow.models.Controlador;
 import com.smartgreenhouse.alphagrow.models.Cultivo;
 import com.smartgreenhouse.alphagrow.models.Login;
@@ -15,6 +16,6 @@ import retrofit2.http.Query;
 public interface AutenticacaoService {
 
     @POST("autenticacao")
-    Call<String> autenticar(@Body Login login);
+    Call<Autenticacao> autenticar(@Body Login login);
 
 }
