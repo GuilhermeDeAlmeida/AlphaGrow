@@ -13,8 +13,4 @@ public class CultivoEmptyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cultivo_empty);
     }
 
-    public void redirecionarParaCadastro(View view){
-        Intent intent  = new Intent(CultivoEmptyActivity.this, CadastroCultivoActivity.class);
-        startActivity(intent);
-    }
 }

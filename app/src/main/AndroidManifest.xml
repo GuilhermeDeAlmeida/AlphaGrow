@@ -21,10 +21,10 @@
         <activity android:name=".CicloEmptyActivity" />
         <activity android:name=".CultivoEmptyActivity" />
         <activity android:name=".IluminacaoActivity" />
-        <activity android:name=".IndicePHActivity" />
+        <activity android:name=".UmidadeActivity" />
         <activity android:name=".TemperaturaActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".CadastroCultivoActivity"></activity>
+        <activity android:name=".ModificacaoCicloActivity"></activity>
     </application>
 
 </manifest>

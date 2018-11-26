@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.smartgreenhouse.alphagrow.config.APIConfig;
@@ -13,14 +14,12 @@ import com.smartgreenhouse.alphagrow.models.Ciclo;
 import com.smartgreenhouse.alphagrow.models.Controlador;
 import com.smartgreenhouse.alphagrow.models.Cultivo;
 import com.smartgreenhouse.alphagrow.models.Login;
-import com.smartgreenhouse.alphagrow.models.Usuario;
 import com.smartgreenhouse.alphagrow.services.ControladorService;
 import com.smartgreenhouse.alphagrow.services.CultivoService;
 import com.smartgreenhouse.alphagrow.services.UsuarioService;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -29,29 +28,26 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private static final String TAG = "RESPOSTA>>>" ;
+    private ControladorService controladorService;
+    private CultivoService cultivoService;
+    private UsuarioService usuarioService;
 
-    ControladorService controladorService;
-    CultivoService cultivoService;
-    UsuarioService usuarioService;
+    private ArrayList<Controlador> listaControladores = new ArrayList<>();
+    private TextView tvTemperatura;
+    private TextView tvUmidade;
+    private TextView tvTemperaturaAdequada;
+    private TextView tvUmidadeAdequada;
+    private TextView tvDiasProxCiclo;
+    private TextView tvInformacoesCiclo;
+    private TextView tvUsuario;
 
-    ArrayList<Controlador> listaControladores = new ArrayList<>();
-    TextView tvTemperatura;
-    TextView tvUmidade;
-    TextView tvTemperaturaAdequada;
-    TextView tvUmidadeAdequada;
-    TextView tvDiasProxCiclo;
-    TextView tvInformacoesCiclo;
-    TextView tvUsuario;
+    private Handler handler;
+    private String umidadeAtual;
+    private String temperaturaAtual;
 
-    Handler handler;
-    String umidadeAtual;
-    String temperaturaAtual;
-//
-//    String ID_CULTIVO;
-//    String ID_USUARIO;
     private String ID_LOGIN;
+    private Button botaoModificarCultivo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +60,23 @@ public class MainActivity extends AppCompatActivity {
         usuarioService = APIConfig.getClient().create(UsuarioService.class);
         ID_LOGIN = getIntent().getStringExtra("idLogin");
 
+        inicializarBotaoModificarCultivo();
+
 
         carregarDadosCiclo();
         manterDadosCiclo();
 
+    }
+
+    private void inicializarBotaoModificarCultivo() {
+
+        botaoModificarCultivo = (Button) findViewById(R.id.botaoModificarCultivo);
+        botaoModificarCultivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirecionarParaModificarCultivo();
+            }
+        });
     }
 
     private void manterDadosCiclo() {
@@ -111,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 //                Log.i(TAG, listaControladores.toString());
 ////                Toast.makeText()
 //
-//                for (Ciclo ciclo : response.body().getCiclos()) {
+//                for (iclo ciclo : response.body().getCiclos()) {
 //                    if(ciclo.getCicloAtual()){
 //                        popularTela(response.body(), ciclo);
 //                    }
@@ -193,8 +202,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void redirecionarParaUmidade(View view){
-        Intent intent = new Intent(MainActivity.this, IndicePHActivity.class);
+        Intent intent = new Intent(MainActivity.this, UmidadeActivity.class);
         intent.putExtra("umidade", umidadeAtual);
+        startActivity(intent);
+    }
+
+    public void redirecionarParaModificarCultivo(){
+        Intent intent = new Intent(MainActivity.this, ModificacaoCicloActivity.class);
+        intent.putExtra("idLogin", ID_LOGIN);
         startActivity(intent);
     }
 

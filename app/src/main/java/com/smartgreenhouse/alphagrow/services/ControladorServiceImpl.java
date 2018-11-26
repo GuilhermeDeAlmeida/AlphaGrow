@@ -17,7 +17,7 @@ public class ControladorServiceImpl {
 //                Log.i(TAG, listaControladores.toString());
 ////                Toast.makeText()
 //
-//                for (Ciclo ciclo : response.body().getCiclos()) {
+//                for (CicloService ciclo : response.body().getCiclos()) {
 //                    if(ciclo.getCicloAtual()){
 //                        popularTela(response.body(), ciclo);
 //                    }
