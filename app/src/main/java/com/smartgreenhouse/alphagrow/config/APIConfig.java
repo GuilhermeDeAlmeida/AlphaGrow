@@ -21,8 +21,8 @@ public class APIConfig{
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://alpha-grow-api.herokuapp.com/api/")
-//                .baseUrl("http://10.0.2.2:8080/api/")
+//                .baseUrl("http://alpha-grow-api.herokuapp.com/api/")
+                .baseUrl("http://10.0.2.2:8080/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();

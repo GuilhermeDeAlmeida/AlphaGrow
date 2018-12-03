@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private String temperaturaAtual;
 
     private String ID_LOGIN;
+    private String TOKEN;
+
     private Button botaoModificarCultivo;
 
     @Override
@@ -55,17 +57,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvUsuario = (TextView) findViewById(R.id.textViewUsuario);
-        controladorService = APIConfig.getClient().create(ControladorService.class);
-        cultivoService = APIConfig.getClient().create(CultivoService.class);
-        usuarioService = APIConfig.getClient().create(UsuarioService.class);
+        incializarServicos();
         ID_LOGIN = getIntent().getStringExtra("idLogin");
-
+        TOKEN = getIntent().getStringExtra("token");
         inicializarBotaoModificarCultivo();
-
-
         carregarDadosCiclo();
         manterDadosCiclo();
 
+    }
+
+    private void incializarServicos() {
+        controladorService = APIConfig.getClient().create(ControladorService.class);
+        cultivoService = APIConfig.getClient().create(CultivoService.class);
+        usuarioService = APIConfig.getClient().create(UsuarioService.class);
     }
 
     private void inicializarBotaoModificarCultivo() {
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 tvUsuario.setText( "Bem vindo " + response.body().getUsuario().getNome());
                 Log.i(TAG, listaControladores.toString());
                 Cultivo cultivo= response.body().getUsuario().getRasp().getCultivo();
+
                 for (Ciclo ciclo : cultivo.getCiclos()) {
                     if(ciclo.getCicloAtual()){
                         popularTela(cultivo, ciclo);
@@ -109,29 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
-
+                Log.w(TAG, "Erro ao obter login");
             }
         });
-//        Log.i(TAG, "Consultando através controladorService.obterCultivo(" +ID_CULTIVO +")");
-//        Call<Cultivo> call = controladorService.obterCultivo(ID_CULTIVO );
-//        call.enqueue(new Callback<Cultivo>() {
-//            @Override
-//            public void onResponse(Call<Cultivo> call, Response<Cultivo> response) {
-//                Log.i(TAG, listaControladores.toString());
-////                Toast.makeText()
-//
-//                for (iclo ciclo : response.body().getCiclos()) {
-//                    if(ciclo.getCicloAtual()){
-//                        popularTela(response.body(), ciclo);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Cultivo> call, Throwable t) {
-//                Log.e(TAG, t.getMessage());
-//            }
-//        });
     }
 
     private void popularTela(Cultivo cultivo, Ciclo ciclo) {
@@ -198,12 +183,14 @@ public class MainActivity extends AppCompatActivity {
     public void redirecionarParaTemperatura(View view){
         Intent intent = new Intent(MainActivity.this, TemperaturaActivity.class);
         intent.putExtra("temperatura", temperaturaAtual);
+        intent.putExtra("token", TOKEN);
         startActivity(intent);
     }
 
     public void redirecionarParaUmidade(View view){
         Intent intent = new Intent(MainActivity.this, UmidadeActivity.class);
         intent.putExtra("umidade", umidadeAtual);
+        intent.putExtra("token", TOKEN);
         startActivity(intent);
     }
 

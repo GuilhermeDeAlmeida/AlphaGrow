@@ -1,6 +1,7 @@
 package com.smartgreenhouse.alphagrow.models;
 
 public class Atuador {
+    private String id;
     private String atuador;
     private boolean estado;
     private String token;
@@ -13,6 +14,13 @@ public class Atuador {
         this.estado = estado;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getToken() {
         return token;
     }

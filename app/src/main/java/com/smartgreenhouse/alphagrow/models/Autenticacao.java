@@ -2,6 +2,8 @@ package com.smartgreenhouse.alphagrow.models;
 
 public class Autenticacao {
     private String id;
+    private String token;
+    private Boolean autenticado;
 
     public Boolean isAutenticado() {
         return autenticado;
@@ -11,8 +13,6 @@ public class Autenticacao {
         this.autenticado = autenticado;
     }
 
-    private Boolean autenticado;
-
     public String getId() {
         return id;
     }
@@ -21,5 +21,11 @@ public class Autenticacao {
         this.id = id;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

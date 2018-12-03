@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 //        intent.putExtra("idCultivo", autenticado);
 //        intent.putExtra("idUsuario", autenticado);
         intent.putExtra("idLogin", autenticado.getId());
+        intent.putExtra("token", autenticado.getToken());
         startActivity(intent);
     }
 }

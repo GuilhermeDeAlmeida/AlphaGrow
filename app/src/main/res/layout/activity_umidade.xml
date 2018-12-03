@@ -30,8 +30,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:layout_weight="1"
                 android:foregroundGravity="center"
                 android:gravity="center"
@@ -67,6 +67,22 @@
                         app:srcCompat="@drawable/arrow_down" />
 
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/buttonBomba"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/alterable_button_border"
+                    app:srcCompat="@drawable/wind_minus" />
+
             </LinearLayout>
 
         </LinearLayout>
