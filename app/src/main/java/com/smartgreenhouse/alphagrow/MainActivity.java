@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.smartgreenhouse.alphagrow.config.APIConfig;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private String TOKEN;
 
     private Button botaoModificarCultivo;
+    private ProgressBar progressBar;
+    private Ciclo cicloAtual = new Ciclo();
+    private long diasCorridosCicloAtual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvUsuario = (TextView) findViewById(R.id.textViewUsuario);
+
+
+
+
         incializarServicos();
         ID_LOGIN = getIntent().getStringExtra("idLogin");
         TOKEN = getIntent().getStringExtra("token");
@@ -64,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
         carregarDadosCiclo();
         manterDadosCiclo();
 
+    }
+
+    private void inicianilarProgressBar() {
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(cicloAtual.getDuracao());
+        diasCorridosCicloAtual = getDateDiff( cicloAtual.getDataInicio(), new Date(), TimeUnit.DAYS);
+//        progressBar.setProgress((int)diasCorridosCicloAtual < cicloAtual.getDuracao() ? (int)diasCorridosCicloAtual : cicloAtual.getDuracao());
+        progressBar.setProgress((int)diasCorridosCicloAtual);
     }
 
     private void incializarServicos() {
@@ -88,16 +104,16 @@ public class MainActivity extends AppCompatActivity {
         final Runnable r = new Runnable() {
             public void run() {
                 carregarDadosCiclo();
-                handler.postDelayed(this, 5000);
+                handler.postDelayed(this, 500);
             }
         };
-        handler.postDelayed(r, 5000);
+        handler.postDelayed(r, 500);
     }
 
     private void carregarDadosCiclo() {
 
         Log.i(TAG, "Consultando através do usuarioService.obeterLogin(" + ID_LOGIN +")");
-        Call<Login> call = usuarioService.obeterLogin(ID_LOGIN);
+        Call<Login> call = usuarioService.obterLogin(ID_LOGIN);
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
@@ -107,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
 
                 for (Ciclo ciclo : cultivo.getCiclos()) {
                     if(ciclo.getCicloAtual()){
-                        popularTela(cultivo, ciclo);
+                       cicloAtual = ciclo;
+                        inicianilarProgressBar();
+                       popularTela(cultivo, ciclo);
                     }
                 }
             }
@@ -133,10 +151,10 @@ public class MainActivity extends AppCompatActivity {
         this.tvDiasProxCiclo = (TextView) findViewById(R.id.textViewDiasCiclo);
         StringBuilder sb = new StringBuilder();
 
-        long days = getDateDiff(new Date() , ciclo.getDataFim() , TimeUnit.DAYS);
-        if(days > 0){
+        long diferencaDias = diasCorridosCicloAtual - cicloAtual.getDuracao();
+        if(diferencaDias <= 0 ){
             sb.append("Em ");
-            sb.append(Long.toString(days));
+            sb.append(Long.toString(diferencaDias));
             sb.append(" dias ele estará pronto para o proximo ciclo");
         }else{
             sb.append("O tempo sugerido para que seu cultivo avance de ciclo ja passou.");

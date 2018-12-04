@@ -2,6 +2,7 @@ package com.smartgreenhouse.alphagrow.models;
 
 public class Login {
 
+    private String id;
     private String email;
     private String senha;
     private Usuario usuario;
@@ -17,6 +18,14 @@ public class Login {
     public Login(String email, String senha) {
         this.email = email;
         this.senha = senha;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {

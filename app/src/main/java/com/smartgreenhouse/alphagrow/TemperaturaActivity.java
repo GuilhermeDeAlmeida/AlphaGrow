@@ -60,10 +60,10 @@ public class TemperaturaActivity extends AppCompatActivity {
         final Runnable r = new Runnable() {
             public void run() {
                 carregarDadosAtuadores();
-                handler.postDelayed(this, 5000);
+                handler.postDelayed(this, 100);
             }
         };
-        handler.postDelayed(r, 5000);
+        handler.postDelayed(r, 100);
     }
 
     private void carregarDadosAtuadores() {

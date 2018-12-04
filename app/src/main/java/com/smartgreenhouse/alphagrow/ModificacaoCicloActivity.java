@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.smartgreenhouse.alphagrow.config.APIConfig;
 import com.smartgreenhouse.alphagrow.models.Ciclo;
+import com.smartgreenhouse.alphagrow.models.ControladorRasp;
 import com.smartgreenhouse.alphagrow.models.Cultivo;
 import com.smartgreenhouse.alphagrow.models.Login;
 import com.smartgreenhouse.alphagrow.services.CicloService;
@@ -36,6 +37,7 @@ public class ModificacaoCicloActivity extends AppCompatActivity {
     private CicloService cicloService;
     private Ciclo cicloAtual;
     private Button botaoSalvar;
+    private Login login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +63,43 @@ public class ModificacaoCicloActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void salvarCicloAtual() {
-        Call<Ciclo> call = cicloService.salvarCiclo(cicloAtual);
-        call.enqueue(new Callback<Ciclo>() {
+        atualizarCicloAtual();
+        atribuirCicloAConta();
+        atualizarConta();
+
+    }
+
+    private void atualizarConta() {
+        Call call = usuarioService.atualizarConta(login);
+        call.enqueue(new Callback() {
             @Override
-            public void onResponse(Call<Ciclo> call, Response<Ciclo> response) {
+            public void onResponse(Call call, Response response) {
                 exibirMensagemSucesso();
             }
 
             @Override
-            public void onFailure(Call<Ciclo> call, Throwable t) {
+            public void onFailure(Call call, Throwable t) {
 
             }
         });
+    }
+
+    private void atribuirCicloAConta() {
+        for (Ciclo ciclo : login.getUsuario().getRasp().getCultivo().getCiclos()) {
+            if(ciclo.getCicloAtual()){
+                ciclo = cicloAtual;
+            }
+        }
+    }
+
+    private void atualizarCicloAtual() {
+        cicloAtual.getControladoresIdeal().setTemperatura(converterTextViewEmString(textoTemperatura));
+        cicloAtual.getControladoresIdeal().setUmidade(converterTextViewEmString(textoUmidade));
+        cicloAtual.setDuracao(Integer.parseInt(converterTextViewEmString(textoDuracao)));
+        cicloAtual.setNome(converterTextViewEmString(textoNome));
     }
 
     private void exibirMensagemSucesso() {
@@ -88,11 +114,12 @@ public class ModificacaoCicloActivity extends AppCompatActivity {
     }
 
     private void obterCultivo(){
-        Call<Login> call = usuarioService.obeterLogin(ID_LOGIN);
+        Call<Login> call = usuarioService.obterLogin(ID_LOGIN);
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
-                List<Ciclo> ciclos = response.body().getUsuario().getRasp().getCultivo().getCiclos();
+                login = response.body();
+                List<Ciclo> ciclos = login.getUsuario().getRasp().getCultivo().getCiclos();
                 cicloAtual = obterCicloAtual(ciclos);
                 carregarTextViews(cicloAtual);
             }

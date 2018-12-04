@@ -14,10 +14,14 @@ public interface UsuarioService {
     @POST("autenticacao/")
     Call<String> autenticar(@Body Login login);
 
+    @POST("login/")
+    Call<Boolean> atualizarConta(@Body Login login);
+
     @GET("autenticacao/obterUsuario")
     Call<Usuario> obeterUsuario(@Query("idUsuario") String id);
 
     @GET("autenticacao")
-    Call<Login> obeterLogin(@Query("idLogin") String id);
+    Call<Login> obterLogin(@Query("idLogin") String id);
+
 
 }

@@ -99,15 +99,14 @@ public class UmidadeActivity extends AppCompatActivity {
         final Runnable r = new Runnable() {
             public void run() {
                 carregarDadosAtuadores();
-                handler.postDelayed(this, 5000);
+                handler.postDelayed(this, 100);
             }
         };
-        handler.postDelayed(r, 5000);
+        handler.postDelayed(r, 100);
     }
 
     private int obterCor(Boolean ativo){
         return ativo? Color.rgb(0, 255, 0) : Color.rgb(255, 0, 0);
-        //
     }
 
     private Atuador obterAtuadorBombaDagua(List<Atuador> atuadores){
